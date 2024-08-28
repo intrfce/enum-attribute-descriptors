@@ -2,8 +2,6 @@
 
 namespace Intrfce\EnumAttributeDescriptors\Tests\Enums;
 
-use Intrfce\EnumAttributeDescriptors\Attributes\Description;
-use Intrfce\EnumAttributeDescriptors\Attributes\Title;
 use Intrfce\EnumAttributeDescriptors\Concerns\HasAttributeDescriptors;
 
 enum Dogs: string
