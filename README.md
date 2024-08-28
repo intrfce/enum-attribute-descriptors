@@ -35,7 +35,7 @@ With this package, you can co-locate titles, and even descriptions, with your en
 
 enum Colour: string {
 
-    use UsesAttributeBasedDescriptors;
+    use HasAttributeDescriptors;
 
     #[Title('Blood Red')]
     #[Description('Our primary highlight colour')]
@@ -63,7 +63,7 @@ composer require intrfce/enum-attribute-descriptors
 
 ## Usage
 
-Just add the `Intrfce\EnumAttributeDescriptors\Concerns\UsesAttributeBasedDescriptors` trait to your enum, and you're good to go!
+Just add the `Intrfce\EnumAttributeDescriptors\Concerns\HasAttributeDescriptors` trait to your enum, and you're good to go!
 
 Simple!
 

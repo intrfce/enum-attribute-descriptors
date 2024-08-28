@@ -6,7 +6,7 @@ use Intrfce\EnumAttributeDescriptors\Attributes\Description;
 use Intrfce\EnumAttributeDescriptors\Attributes\Title;
 use ReflectionClassConstant;
 
-trait UsesAttributeBasedDescriptors
+trait HasAttributeDescriptors
 {
     public function getTitle(): ?string
     {

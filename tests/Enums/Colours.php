@@ -4,11 +4,11 @@ namespace Intrfce\EnumAttributeDescriptors\Tests\Enums;
 
 use Intrfce\EnumAttributeDescriptors\Attributes\Description;
 use Intrfce\EnumAttributeDescriptors\Attributes\Title;
-use Intrfce\EnumAttributeDescriptors\Concerns\UsesAttributeBasedDescriptors;
+use Intrfce\EnumAttributeDescriptors\Concerns\HasAttributeDescriptors;
 
 enum Colours: string
 {
-    use UsesAttributeBasedDescriptors;
+    use HasAttributeDescriptors;
 
     #[Title('Red')]
     #[Description('This colour is red')]
@@ -17,4 +17,6 @@ enum Colours: string
     #[Title('Blue')]
     #[Description('This colour is blue')]
     case Blue = 'blue';
+
+    case Green = 'green';
 }
