@@ -1,0 +1,48 @@
+{
+    "name": "intrfce/enum-attribute-descriptors",
+    "description": "Use attributes to give your PHP enums ",
+    "keywords": [
+        "intrfce",
+        "enum-attribute-descriptors"
+    ],
+    "homepage": "https://github.com/intrfce/enum-attribute-descriptors",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Dan Matthews",
+            "email": "dan@danmatthews.me",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.1",
+        "pestphp/pest": "^2.23",
+        "phpunit/phpunit": "^10.0",
+        "tightenco/duster": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Intrfce\\EnumAttributeDescriptors\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Intrfce\\EnumAttributeDescriptors\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
