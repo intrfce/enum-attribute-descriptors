@@ -1,6 +1,7 @@
 <?php
 
 use Intrfce\EnumAttributeDescriptors\Tests\Enums\Colours;
+use Intrfce\EnumAttributeDescriptors\Tests\Enums\Dogs;
 
 it('Gets the title of a given enum case', function () {
     $case = Colours::Blue;
@@ -28,6 +29,6 @@ it('Returns a defined title fallback if given', function () {
 });
 
 it('Returns a defined description fallback if given', function () {
-    $case = \Intrfce\EnumAttributeDescriptors\Tests\Enums\Dogs::Labrador;
+    $case = Dogs::Labrador;
     expect($case->getDescription())->toBe('one two three');
 });
