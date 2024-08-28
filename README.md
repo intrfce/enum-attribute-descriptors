@@ -7,6 +7,8 @@
 Have you ever written an enum for something and wanted to have a "nice" version of the enum name, so you write something like this:
 
 ```php
+<?php
+
 enum Colour: string {
 
     case RED = 'red';
@@ -29,6 +31,8 @@ But the problem is, for each option, you have to add something to the match stat
 With this package, you can co-locate titles, and even descriptions, with your enum cases like so:
 
 ```php
+<?php
+
 enum Colour: string {
 
     use UsesAttributeBasedDescriptors;
