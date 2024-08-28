@@ -26,7 +26,7 @@ enum Colour: string {
 }
 ```
 
-But the problem is, for each option, you have to add something to the match statement, or HOPE that it'll print something out that's legible using the fallback?
+But the problem is, for each new `case`, you have to add something to the `match` statement, or HOPE that it'll print something out that's legible using the `default` fallback?
 
 With this package, you can co-locate titles, and even descriptions, with your enum cases like so:
 
