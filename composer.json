@@ -1,6 +1,6 @@
 {
     "name": "intrfce/enum-attribute-descriptors",
-    "description": "Use attributes to give your PHP enums ",
+    "description": "Use attributes to give your PHP enums titles and descriptions.",
     "keywords": [
         "intrfce",
         "enum-attribute-descriptors"

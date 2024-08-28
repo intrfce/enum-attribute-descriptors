@@ -1,113 +1,67 @@
-# Laravel Frontend Enums
+# Attribute based Enum descriptors.
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/intrfce/laravel-frontend-enums.svg?style=flat-square)](https://packagist.org/packages/intrfce/laravel-frontend-enums)
-[![Total Downloads](https://img.shields.io/packagist/dt/intrfce/laravel-frontend-enums.svg?style=flat-square)](https://packagist.org/packages/intrfce/laravel-frontend-enums)
-![GitHub Actions](https://github.com/intrfce/laravel-frontend-enums/actions/workflows/main.yml/badge.svg)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/intrfce/enum-attribute-descriptors.svg?style=flat-square)](https://packagist.org/packages/intrfce/enum-attribute-descriptors)
+[![Total Downloads](https://img.shields.io/packagist/dt/intrfce/enum-attribute-descriptors.svg?style=flat-square)](https://packagist.org/packages/intrfce/enum-attribute-descriptors)
+![GitHub Actions](https://github.com/intrfce/enum-attribute-descriptors/actions/workflows/main.yml/badge.svg)
 
-Publish your PHP enums to the frontend of our application so you can refer to them in your JavaScript code.
+Have you ever written an enum for something and wanted to have a "nice" version of the enum name, so you write something like this:
+
+```php
+enum Colour: string {
+
+    case RED = 'red';
+    case BLUE = 'blue';
+    case GREEN = 'green';
+
+    public function getTitle()
+    {
+        return match($this->value) {
+            'blue' => "Dark Blue",
+            'red' => "Blood Red"
+            default => ucfirst($this->value),
+        };
+    }
+}
+```
+
+But the problem is, for each option, you have to add something to the match statement, or HOPE that it'll print something out that's legible using the fallback?
+
+With this package, you can co-locate titles, and even descriptions, with your enum cases like so:
+
+```php
+enum Colour: string {
+
+    use UsesAttributeBasedDescriptors;
+
+    #[Title('Blood Red')]
+    #[Description('Our primary highlight colour')]
+    case RED = 'red';
+
+    #[Title('Dark Blue')]
+    #[Description('Our primary logo colour')]
+    case BLUE = 'blue';
+
+    #[Title('Army Green')]
+    #[Description('Only use this for background colours.')]
+    case GREEN = 'green';
+}
+```
+
+Neat huh!
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require intrfce/laravel-frontend-enums
+composer require intrfce/enum-attribute-descriptors
 ```
 
 ## Usage
 
-In your `AppServiceProvider.php`, tell the package which Enums you want to publish:
+Just add the `Intrfce\EnumAttributeDescriptors\Concerns\UsesAttributeBasedDescriptors` trait to your enum, and you're good to go!
 
-```php
-
-use Intrfce\LaravelFrontendEnums\Facades\PublishEnums;
-
-PublishEnums::publish([
-    \App\Enums\MyEnum::class,
-    \App\Enums\MyOtherEnum::class,
-])->toDirectory(resource_path('js/Enums'));
-```
-Then run the publish command:
-
-```php
-php artisan publish:enums-to-javascript
-```
-
-Your enums will be waiting at the path you specified with the extension `.enum.js`:
-
-```
-MyEnum.enum.js
-MyOtherEnum.enum.js
-```
-
-You can then import and use them in your JavaScript code:
-
-```js  
-import {MyEnum} from './Enums/MyEnum.enum.js';
-import {MyOtherEnum} from './Enums/MyOtherEnum.enum.js';
-
-console.log(MyEnum.FOO); // 0
-console.log(MyOtherEnum.BAR); // 'bar'
-```
-
-## Typescript Support
-
-Typescript support is baked in: just add `->asTypescript()` to the list of enums in your `AppServiceProvider.php`:
-
-```php
-PublishEnums::publish([
-    \App\Enums\MyEnum::class,
-    \App\Enums\MyOtherEnum::class,
-])
-->asTypescript()
-->toDirectory(resource_path('js/Enums'));
-```
-
-Files will be output as `.ts` files and Typescript native enums:
-
-```ts
-export enum MyEnum {
-    FOO = 0,
-    BAR = 1,
-    BAZ = 2,
-}
-```
-
-## Automatically generate javascript files on change.
-
-You can use the [`vite-plugin-watch`](https://github.com/lepikhinb/vite-plugin-watch) package from [lepikhinb](https://github.com/lepikhinb) to automatically generate your javascript files when you make changes to your PHP enums:
-
-```php
-npm install -D vite-plugin-watch
-```
-
-Then add the plugin to your `vite.config.js`:
-
-```js
-import { defineConfig } from "vite"
-import { watch } from "vite-plugin-watch"
-
-export default defineConfig({
-  plugins: [ 
-    watch({
-      pattern: "app/Enums/**/*.php",
-      command: "php artisan publish:enums-to-javascript",
-    }),
-  ],
-})
-```
-
-### Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-### Security
-
-If you discover any security related issues, please email dan@danmatthews.me instead of using the issue tracker.
+Simple!
 
 ## Credits
 
