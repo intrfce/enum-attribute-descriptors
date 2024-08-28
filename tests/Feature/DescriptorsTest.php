@@ -24,7 +24,7 @@ it('Returns null for the description if one not set', function () {
 });
 
 it('Returns a defined title fallback if given', function () {
-    $case = \Intrfce\EnumAttributeDescriptors\Tests\Enums\Dogs::Labrador;
+    $case = Dogs::Labrador;
     expect($case->getTitle())->toBe(strtoupper($case->name));
 });
 
