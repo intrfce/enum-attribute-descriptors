@@ -65,6 +65,23 @@ composer require intrfce/enum-attribute-descriptors
 
 Just add the `Intrfce\EnumAttributeDescriptors\Concerns\HasAttributeDescriptors` trait to your enum, and you're good to go!
 
+### Defining fallbacks.
+
+If you have a situation where you don't want to (or can't) define a description or title for each case, you can override 
+the `titleFallback()` and `descriptionFallback()` methods on your enum class.
+
+```php
+public function titleFallback(): ?string
+{
+    return ucfirst($this->value);
+}
+
+public function descriptionFallback(): ?string
+{
+    return 'This option has no description yet';
+}
+```
+
 Simple!
 
 ## Credits

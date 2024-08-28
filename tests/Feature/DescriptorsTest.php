@@ -21,3 +21,13 @@ it('Returns null for the description if one not set', function () {
     $case = Colours::Green;
     expect($case->getDescription())->toBeNull();
 });
+
+it('Returns a defined title fallback if given', function () {
+    $case = \Intrfce\EnumAttributeDescriptors\Tests\Enums\Dogs::Labrador;
+    expect($case->getTitle())->toBe(strtoupper($case->name));
+});
+
+it('Returns a defined description fallback if given', function () {
+    $case = \Intrfce\EnumAttributeDescriptors\Tests\Enums\Dogs::Labrador;
+    expect($case->getDescription())->toBe('one two three');
+});
