@@ -10,11 +10,11 @@ jobs:
       matrix:
         php: [8.5, 8.4, 8.3, 8.2]
         laravel: [11.*, 12.*, 13.*]
-        testbench: [^9.0, ^10.0, ^11.0]
+        testbench: [^9.1, ^10.0, ^11.0]
         dependency-version: [prefer-lowest, prefer-stable]
         include:
           - laravel: 11.*
-            testbench: ^9.0
+            testbench: ^9.1
           - laravel: 12.*
             testbench: ^10.0
           - laravel: 13.*
@@ -25,17 +25,16 @@ jobs:
           - laravel: 11.*
             testbench: ^11.0
           - laravel: 12.*
-            testbench: ^9.0
+            testbench: ^9.1
           - laravel: 12.*
             testbench: ^11.0
           - laravel: 13.*
-            testbench: ^9.0
+            testbench: ^9.1
           - laravel: 13.*
             testbench: ^10.0
-          - dependency-version: prefer-stable
-            testbench: ^10.0
-          - dependency-version: prefer-stable
-            testbench: ^11.0
+          # L13/Testbench 11 have no stable releases yet
+          - laravel: 13.*
+            dependency-version: prefer-lowest
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
 
@@ -57,7 +56,13 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "nesbot/carbon:>=2.62.1" --no-interaction --no-update
+          LARAVEL="${{ matrix.laravel }}"
+          TESTBENCH="${{ matrix.testbench }}"
+          if [[ "$LARAVEL" == "13.*" ]]; then
+            LARAVEL="13.*@dev"
+            TESTBENCH="${TESTBENCH}@dev"
+          fi
+          composer require "laravel/framework:${LARAVEL}" "orchestra/testbench:${TESTBENCH}" "nesbot/carbon:>=2.62.1" --no-interaction --no-update
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
       - name: Execute tests
