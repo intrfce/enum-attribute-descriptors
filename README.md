@@ -53,6 +53,31 @@ enum Colour: string {
 
 Neat huh!
 
+You can also attach arbitrary key-value metadata to your enum cases using the `KeyValue` attribute:
+
+```php
+<?php
+
+use Intrfce\EnumAttributeDescriptors\Attributes\KeyValue;
+
+enum PaymentType: string {
+
+    use HasAttributeDescriptors;
+
+    #[Title('Donate')]
+    #[KeyValue('group', 'Donations')]
+    #[KeyValue('sort_order', 3)]
+    case Donate = 'donate';
+}
+
+// Usage:
+PaymentType::Donate->getKeyValue('group');      // 'Donations'
+PaymentType::Donate->getKeyValue('sort_order'); // 3
+PaymentType::Donate->getKeyValue('missing');    // null
+```
+
+The `KeyValue` attribute is repeatable, so you can attach as many key-value pairs as you need to each case. Values can be any type (strings, integers, booleans, etc.).
+
 ## Installation
 
 You can install the package via composer:
