@@ -3,6 +3,7 @@
 namespace Intrfce\EnumAttributeDescriptors\Concerns;
 
 use Intrfce\EnumAttributeDescriptors\Attributes\Description;
+use Intrfce\EnumAttributeDescriptors\Attributes\KeyValue;
 use Intrfce\EnumAttributeDescriptors\Attributes\MetaData;
 use Intrfce\EnumAttributeDescriptors\Attributes\Title;
 use ReflectionClassConstant;
@@ -35,6 +36,25 @@ trait HasAttributeDescriptors
         $attributes = $reflectionClass->getAttributes(MetaData::class);
 
         return isset($attributes[0]) ? $attributes[0]->newInstance()?->description : null;
+    }
+
+    /**
+     * Returns the value for a given key from KeyValue attributes on the enum case,
+     * or null if the key is not found.
+     */
+    public function getKeyValue(string $key): mixed
+    {
+        $reflectionClass = new ReflectionClassConstant($this, $this->name);
+        $attributes = $reflectionClass->getAttributes(KeyValue::class);
+
+        foreach ($attributes as $attribute) {
+            $instance = $attribute->newInstance();
+            if ($instance->key === $key) {
+                return $instance->value;
+            }
+        }
+
+        return null;
     }
 
     /**
